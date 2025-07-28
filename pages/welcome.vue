@@ -11,7 +11,7 @@
           <p class="mb-6 grey--text text--lighten-1">
             Convert your PDF documents to editable Word files with a single click — fast, simple, and no signup required.
           </p>
-          <v-btn color="teal darken-1" large dark @click="start">
+          <v-btn color="teal darken-1" large dark @click="login">
             🚀 Let's Start
           </v-btn>
         </v-card>
@@ -23,8 +23,8 @@
 <script>
 export default {
   methods: {
-    start() {
-      this.$router.push('/convert') // replace with your actual page route
+    login() {
+      this.$auth.loginWith('auth0')
     }
   }
 }
