@@ -5,19 +5,15 @@ export default {
 
   head: {
     titleTemplate: '%s - pdf-word-app',
-    title: 'pdf-word-app',
-    htmlAttrs: {
-      lang: 'en'
-    },
+    title: 'PDF to Word Converter',
+    htmlAttrs: { lang: 'en' },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
   css: [],
@@ -28,11 +24,41 @@ export default {
 
   components: true,
 
-  buildModules: [
-    '@nuxtjs/vuetify',
+  buildModules: ['@nuxtjs/vuetify'],
+
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
   ],
 
-  modules: [],
+  auth: {
+    redirect: {
+      login: '/welcome',
+      logout: '/welcome',
+      callback: '/callback',
+      home: '/home'
+    },
+    cookie: {
+      options: {
+        secure: true,
+        domain: '.vercel.app'
+      }
+    },
+    strategies: {
+      auth0: {
+        domain: process.env.AUTH0_DOMAIN,
+        clientId: process.env.AUTH0_CLIENT_ID,
+        audience: '',
+        redirectUri: process.env.AUTH0_REDIRECT_URI,
+        logoutRedirectUri: process.env.AUTH0_LOGOUT_REDIRECT_URI,
+        scope: ['openid', 'profile', 'email']
+      }
+    }
+  },
+
+  axios: {
+    baseURL: '/'
+  },
 
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
@@ -66,5 +92,9 @@ export default {
         }
       })
     }
+  },
+
+  router: {
+    middleware: [] // Add ['auth'] if you want all routes protected
   }
 }

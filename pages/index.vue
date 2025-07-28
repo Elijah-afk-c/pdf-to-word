@@ -1,11 +1,14 @@
-<template>
-  <PdfToWord />
-</template>
-
 <script>
-import PdfToWord from '~/components/PdfToWord.vue'
-
 export default {
-  components: { PdfToWord }
+  middleware: 'auth',
+  mounted() {
+    this.$router.replace('/home') // ✅ Redirect to your home.vue
+  }
 }
 </script>
+
+<template>
+  <div>
+    Redirecting to home...
+  </div>
+</template>
